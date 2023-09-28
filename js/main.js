@@ -27,7 +27,7 @@ const countries = {
     "BL": "Saint Barthélemy",
     "BM": "Bermuda",
     "BN": "Brunei Darussalam",
-    "BO": "Bolivia, Plurinational State of",
+    "BO": "Bolivia",
     "BQ": "Caribbean Netherlands",
     "BR": "Brazil",
     "BS": "Bahamas",
@@ -37,8 +37,8 @@ const countries = {
     "BY": "Belarus",
     "BZ": "Belize",
     "CA": "Canada",
-    "CC": "Cocos (Keeling) Islands",
-    "CD": "Congo, the Democratic Republic of the",
+    "CC": "Cocos Islands",
+    "CD": "Congo",
     "CF": "Central African Republic",
     "CG": "Republic of the Congo",
     "CH": "Switzerland",
@@ -46,7 +46,7 @@ const countries = {
     "CK": "Cook Islands",
     "CL": "Chile",
     "CM": "Cameroon",
-    "CN": "China (People's Republic of China)",
+    "CN": "China",
     "CO": "Colombia",
     "CR": "Costa Rica",
     "CU": "Cuba",
@@ -71,8 +71,8 @@ const countries = {
     "EU": "Europe",
     "FI": "Finland",
     "FJ": "Fiji",
-    "FK": "Falkland Islands (Malvinas)",
-    "FM": "Micronesia, Federated States of",
+    "FK": "Falkland Islands",
+    "FM": "Micronesia",
     "FO": "Faroe Islands",
     "FR": "France",
     "GA": "Gabon",
@@ -111,7 +111,7 @@ const countries = {
     "IN": "India",
     "IO": "British Indian Ocean Territory",
     "IQ": "Iraq",
-    "IR": "Iran, Islamic Republic of",
+    "IR": "Iran",
     "IS": "Iceland",
     "IT": "Italy",
     "JE": "Jersey",
@@ -124,12 +124,12 @@ const countries = {
     "KI": "Kiribati",
     "KM": "Comoros",
     "KN": "Saint Kitts and Nevis",
-    "KP": "Korea, Democratic People's Republic of",
+    "KP": "Korea",
     "KR": "Korea, Republic of",
     "KW": "Kuwait",
     "KY": "Cayman Islands",
     "KZ": "Kazakhstan",
-    "LA": "Laos (Lao People's Democratic Republic)",
+    "LA": "Laos",
     "LB": "Lebanon",
     "LC": "Saint Lucia",
     "LI": "Liechtenstein",
@@ -142,7 +142,7 @@ const countries = {
     "LY": "Libya",
     "MA": "Morocco",
     "MC": "Monaco",
-    "MD": "Moldova, Republic of",
+    "MD": "Moldova",
     "ME": "Montenegro",
     "MF": "Saint Martin",
     "MG": "Madagascar",
@@ -202,7 +202,7 @@ const countries = {
     "SD": "Sudan",
     "SE": "Sweden",
     "SG": "Singapore",
-    "SH": "Saint Helena, Ascension and Tristan da Cunha",
+    "SH": "Saint Helena",
     "SI": "Slovenia",
     "SJ": "Svalbard and Jan Mayen Islands",
     "SK": "Slovakia",
@@ -224,24 +224,24 @@ const countries = {
     "TH": "Thailand",
     "TJ": "Tajikistan",
     "TK": "Tokelau",
-    "TL": "Timor-Leste",
+    "TL": "Timor Leste",
     "TM": "Turkmenistan",
     "TN": "Tunisia",
     "TO": "Tonga",
     "TR": "Turkey",
     "TT": "Trinidad and Tobago",
     "TV": "Tuvalu",
-    "TW": "Taiwan (Republic of China)",
-    "TZ": "Tanzania, United Republic of",
+    "TW": "Taiwan",
+    "TZ": "Tanzania",
     "UA": "Ukraine",
     "UG": "Uganda",
     "UM": "US Minor Outlying Islands",
     "US": "United States",
     "UY": "Uruguay",
     "UZ": "Uzbekistan",
-    "VA": "Holy See (Vatican City State)",
+    "VA": "Holy See",
     "VC": "Saint Vincent and the Grenadines",
-    "VE": "Venezuela, Bolivarian Republic of",
+    "VE": "Venezuela",
     "VG": "Virgin Islands, British",
     "VI": "Virgin Islands, U.S.",
     "VN": "Vietnam",
@@ -255,44 +255,87 @@ const countries = {
     "ZM": "Zambia",
     "ZW": "Zimbabwe"
 }
+const countriesLowercased = Object.keys(countries).reduce((newObj, key) => {
+    newObj[key.toLowerCase()] = countries[key].toLowerCase();
+    return newObj;
+}, {});
 
 var score = 0
 var countryList = []
 var questionNumber = 0 
-var imageElement = document.getElementById("imageid")
-var userInput = document.querySelector('input[type=guess]')
-const submitButton = document.querySelector('input[type=submit]')
-console.log(userInput)
+var imageElement
+var selectedCountry 
+var form = document.getElementById('myForm')
+var feedback = document.getElementById("feedback")
+var tries = 0
 
-
-for (country in countries) {
-    countryList.push(country.toLowerCase()); 
+function Restart() {
+    score = 0
+    countryList = []
+    for (country in countries) {
+        countryList.push(country.toLowerCase()); 
+    }
+    tries = 0
+    questionNumber = 0 
+    updateFlag()
+    updateScore()
 }
 
-function selectFlag() {
+function updateScore() {
+    scoreText = document.getElementById("score")
+    scoreText.innerHTML = `Score: ${score}`
+    questionText = document.getElementById("question_number")
+    questionText.innerHTML = `Question: ${questionNumber}`
+}
+
+
+function updateFlag() {
     const random = Math.floor(Math.random() * countryList.length);
-    console.log(countryList[random])
-    console.log(imageElement)
+    selectedCountry = countriesLowercased[countryList[random]]
+    countryList.pop(countryList[random])
+    console.log(selectedCountry)
+    /* change title of flag too */ 
     if (imageElement) {
-        // Change the src attribute to point to a different image
-        imageElement.src = '../svg/ba.svg';
+        imageElement.src = `../svg/${countryList[random]}.svg`;
 } else {
-    console.log("ERROR")
+    console.log("ERROR") /* error handling */ 
 }
 }
 
-window.addEventListener("load", () => {
-    console.log("Hello HELLO!");
-    console.log(imageElement)
-  });
+function nextQuestion() {
+    updateScore()
+    updateFlag() 
+    document.querySelector('input[name="guess"]').value  = ''
+    feedback.innerHTML = "Fill in your answer here:"
+}
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById("imageid").style.display = "block"
+    imageElement = document.getElementById("imageid");
+    Restart() 
+    form.addEventListener('submit', function(event) {
+        var userInput = document.querySelector('input[name="guess"]').value;
+        event.preventDefault()
+        /* how can I allow more dynamic questions */ 
+        if (userInput.toLowerCase().trim() === selectedCountry) {
+            feedback.innerHTML = "Correct"
+            score += 1
+            questionNumber += 1
+            nextQuestion() 
+        } else if (userInput.toLowerCase().trim() === '') {
+            document.querySelector('input[name="guess"]').value  = ''
+            feedback.innerHTML = "Please enter a guess";
+        }
+        else {
+            console.log("check")
+            feedback.innerHTML = "Try again"
+            document.querySelector('input[name="guess"]').value  = ''
+            tries += 1 
+        } 
+    })
+});
 
-/*
-function logSubmit(event) {
-    log.textContent = `Form Submitted! Timestamp: ${event.timeStamp}`;
-    event.preventDefault();
-  }
 
-userInput.addEventListener("submit", logSubmit());
-*/ 
+document.getElementById('skip').addEventListener('click', nextQuestion);
+document.getElementById('restart').addEventListener('click', Restart);

@@ -1,5 +1,7 @@
 * {
     font-size: 20px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+
 }
 
 body {
@@ -50,3 +52,10 @@ input[type=guess] {
     margin: 10px 0;
     box-sizing: border-box;
   }
+
+img {
+    border: 2px solid #555;
+    object-fit: contain; 
+}
+
+/* How do I get image to surround the flag */ 
