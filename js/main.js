@@ -1,3 +1,4 @@
+/*----- constants -----*/
 const countries = {
     "AD": "Andorra",
     "AE": "United Arab Emirates",
@@ -260,16 +261,37 @@ const countriesLowercased = Object.keys(countries).reduce((newObj, key) => {
     return newObj;
 }, {});
 
+
+/*----- state variables  -----*/
 var score = 0
 var countryList = []
 var questionNumber = 0 
 var imageElement
 var selectedCountry 
+var tries = 0
+var userSelectedNumber
+
 var form = document.getElementById('myForm')
 var feedback = document.getElementById("feedback")
-var tries = 0
+
+var skipButton = document.getElementById('skip')
+var restartButton = document.getElementById('restart')
+var radios = document.querySelectorAll('input[type=radio]')
+
+var gameStartScreen = document.getElementById("gameStartScreen")
+var gameStart = document.getElementById("gameStart")
+var gameEnd = document.getElementById('gameEnd') 
+/*----- functions  -----*/
+function homeScreen() {
+    gameStartScreen.hidden = false
+    gameStart.hidden = true
+    gameEnd.hidden = true
+
+
+}
 
 function Restart() {
+    homeScreen()
     score = 0
     countryList = []
     for (country in countries) {
@@ -279,13 +301,19 @@ function Restart() {
     questionNumber = 0 
     updateFlag()
     updateScore()
+    skipButton.disabled = false 
+    for (let element of form.elements) {
+        element.disabled = false
+      }
+
 }
 
 function updateScore() {
     scoreText = document.getElementById("score")
     scoreText.innerHTML = `Score: ${score}`
     questionText = document.getElementById("question_number")
-    questionText.innerHTML = `Question: ${questionNumber}`
+    /* need to define the userSleected Number first */ 
+    questionText.innerHTML = `Question: ${questionNumber}/${userSelectedNumber}`
 }
 
 
@@ -294,7 +322,6 @@ function updateFlag() {
     selectedCountry = countriesLowercased[countryList[random]]
     countryList.pop(countryList[random])
     console.log(selectedCountry)
-    /* change title of flag too */ 
     if (imageElement) {
         imageElement.src = `../svg/${countryList[random]}.svg`;
 } else {
@@ -303,17 +330,52 @@ function updateFlag() {
 }
 
 function nextQuestion() {
+    questionNumber += 1
     updateScore()
     updateFlag() 
     document.querySelector('input[name="guess"]').value  = ''
     feedback.innerHTML = "Fill in your answer here:"
 }
 
+function gameEndCheck() {
+    if (questionNumber == userSelectedNumber) {
+        skipButton.disabled = true 
+        for (let element of form.elements) {
+            element.disabled = true
+          }
+        /* game end logic */ 
+        gameEnd.hidden=false 
+        gameStart.hidde = true
+        gameStartScreen.hidden = true
+        document.querySelector('#gameEnd > h2').innerHTML= `Your score is ${score}/${questionNumber}`
+        /* restart doesnt work */ 
+        }
+    
+}
 
+
+/*----- event listeners  -----*/
+
+
+radios.forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      if (this.checked) {
+          userSelectedNumber = this.value
+          document.getElementById("gameStartScreen").hidden=true
+          document.getElementById("gameStart").hidden=false
+          radios.checked = false
+      }
+    });
+  });
+
+function gameSwitchScreen() {
+
+}
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("imageid").style.display = "block"
     imageElement = document.getElementById("imageid");
     Restart() 
+
     form.addEventListener('submit', function(event) {
         var userInput = document.querySelector('input[name="guess"]').value;
         event.preventDefault()
@@ -321,7 +383,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (userInput.toLowerCase().trim() === selectedCountry) {
             feedback.innerHTML = "Correct"
             score += 1
-            questionNumber += 1
+            console.log(userSelectedNumber)
+            gameEndCheck()
             nextQuestion() 
         } else if (userInput.toLowerCase().trim() === '') {
             document.querySelector('input[name="guess"]').value  = ''
@@ -336,6 +399,7 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 });
 
+skipButton.addEventListener('click', nextQuestion);
+skipButton.addEventListener('click', gameEndCheck);
+restartButton.addEventListener('click', Restart);
 
-document.getElementById('skip').addEventListener('click', nextQuestion);
-document.getElementById('restart').addEventListener('click', Restart);
