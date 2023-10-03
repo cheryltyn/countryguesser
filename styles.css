@@ -1,7 +1,6 @@
 * {
     font-size: 20px;
     font-family: "Comic Sans MS", "Comic Sans", cursive;
-
 }
 
 body {
@@ -55,7 +54,7 @@ input[type=guess] {
     box-sizing: border-box;
   }
 
-  input[type=submit] {
+input[type=submit] {
     margin: 10px 0;
     box-sizing: border-box;
   }

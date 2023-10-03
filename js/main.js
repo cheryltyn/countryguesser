@@ -43,7 +43,7 @@ const countries = {
     "CF": "Central African Republic",
     "CG": "Republic of the Congo",
     "CH": "Switzerland",
-    "CI": "C\u00f4te d'Ivoire",
+    "CI": "Cote d;Ivoire",
     "CK": "Cook Islands",
     "CL": "Chile",
     "CM": "Cameroon",
@@ -126,7 +126,7 @@ const countries = {
     "KM": "Comoros",
     "KN": "Saint Kitts and Nevis",
     "KP": "Korea",
-    "KR": "Korea, Republic of",
+    "KR": "Korea",
     "KW": "Kuwait",
     "KY": "Cayman Islands",
     "KZ": "Kazakhstan",
@@ -215,7 +215,7 @@ const countries = {
     "SS": "South Sudan",
     "ST": "Sao Tome and Principe",
     "SV": "El Salvador",
-    "SX": "Sint Maarten (Dutch part)",
+    "SX": "Sint Maarten",
     "SY": "Syrian Arab Republic",
     "SZ": "Swaziland",
     "TC": "Turks and Caicos Islands",
@@ -236,15 +236,14 @@ const countries = {
     "TZ": "Tanzania",
     "UA": "Ukraine",
     "UG": "Uganda",
-    "UM": "US Minor Outlying Islands",
     "US": "United States",
     "UY": "Uruguay",
     "UZ": "Uzbekistan",
     "VA": "Holy See",
     "VC": "Saint Vincent and the Grenadines",
     "VE": "Venezuela",
-    "VG": "Virgin Islands, British",
-    "VI": "Virgin Islands, U.S.",
+    "VG": "Virgin Islands",
+    "VI": "Virgin Islands",
     "VN": "Vietnam",
     "VU": "Vanuatu",
     "WF": "Wallis and Futuna Islands",
@@ -269,13 +268,17 @@ var questionNumber = 0
 var imageElement
 var selectedCountry 
 var tries = 0
-var userSelectedNumber
+var userSelectedNumber 
+var wordDisplay = [];
 
 var form = document.getElementById('myForm')
 var feedback = document.getElementById("feedback")
+var answer = document.getElementById('answer')
+var hold = document.getElementById('hold')
 
 var skipButton = document.getElementById('skip')
 var restartButton = document.getElementById('restart')
+var restartButton2 = document.getElementById('restart2')
 var radios = document.querySelectorAll('input[type=radio]')
 
 var gameStartScreen = document.getElementById("gameStartScreen")
@@ -286,12 +289,11 @@ function homeScreen() {
     gameStartScreen.hidden = false
     gameStart.hidden = true
     gameEnd.hidden = true
-
-
+    radios.forEach(radio => radio.checked = false)
 }
 
+
 function Restart() {
-    homeScreen()
     score = 0
     countryList = []
     for (country in countries) {
@@ -299,14 +301,46 @@ function Restart() {
     }
     tries = 0
     questionNumber = 0 
+    answer.innerText = ''
     updateFlag()
     updateScore()
+    generateAnswerDisplay(selectedCountry)
     skipButton.disabled = false 
     for (let element of form.elements) {
         element.disabled = false
       }
 
 }
+
+function generateAnswerDisplay(word) {
+    var wordArray = word.split("");
+    hold.innerHTML = ""
+    for (var i = 0; i < wordArray.length; i++) {
+        if (wordArray[i] == ' ') {
+            /* can't add more space */ 
+            var content = document.createTextNode(" ".repeat(20))
+            hold.appendChild(content)
+        }
+        else {
+            var content = document.createTextNode("_  ")
+            hold.appendChild(content)
+        }
+    }
+}
+
+function checkAnswerDisplay(userInput, selectedCountry) {
+    var countryAnswer = selectedCountry.split(""); 
+    var user = userInput.split("")
+    var placeholder = hold.innerText.split(" ")
+    console.log(countryAnswer, user)
+    for (var i = 0; i < user.length; i++) {
+        if (countryAnswer[i] === user[i]) {
+            placeholder[i] = countryAnswer[i]
+        }
+    }
+    hold.innerHTML = placeholder.join(" ")
+}
+
 
 function updateScore() {
     scoreText = document.getElementById("score")
@@ -320,21 +354,24 @@ function updateScore() {
 function updateFlag() {
     const random = Math.floor(Math.random() * countryList.length);
     selectedCountry = countriesLowercased[countryList[random]]
-    countryList.pop(countryList[random])
     console.log(selectedCountry)
     if (imageElement) {
         imageElement.src = `../svg/${countryList[random]}.svg`;
-} else {
-    console.log("ERROR") /* error handling */ 
-}
+    } else {
+        console.log("ERROR") /* error handling */ 
+    }
+    countryList.splice(random,1)
 }
 
 function nextQuestion() {
+    feedback.innerHTML = "Fill in your answer here:"
+    gameEndCheck()
     questionNumber += 1
+    tries = 0
     updateScore()
     updateFlag() 
+    generateAnswerDisplay(selectedCountry)
     document.querySelector('input[name="guess"]').value  = ''
-    feedback.innerHTML = "Fill in your answer here:"
 }
 
 function gameEndCheck() {
@@ -343,19 +380,16 @@ function gameEndCheck() {
         for (let element of form.elements) {
             element.disabled = true
           }
-        /* game end logic */ 
         gameEnd.hidden=false 
-        gameStart.hidde = true
+        gameStart.hidden = true
         gameStartScreen.hidden = true
         document.querySelector('#gameEnd > h2').innerHTML= `Your score is ${score}/${questionNumber}`
-        /* restart doesnt work */ 
         }
-    
 }
 
 
 /*----- event listeners  -----*/
-
+/*----- game start screen  -----*/
 
 radios.forEach(function(radio) {
     radio.addEventListener('change', function() {
@@ -364,42 +398,55 @@ radios.forEach(function(radio) {
           document.getElementById("gameStartScreen").hidden=true
           document.getElementById("gameStart").hidden=false
           radios.checked = false
+          Restart()
       }
     });
   });
 
-function gameSwitchScreen() {
-
-}
+/*----- gameplay  -----*/ 
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("imageid").style.display = "block"
     imageElement = document.getElementById("imageid");
-    Restart() 
 
     form.addEventListener('submit', function(event) {
         var userInput = document.querySelector('input[name="guess"]').value;
         event.preventDefault()
+        checkAnswerDisplay(userInput, selectedCountry)
         /* how can I allow more dynamic questions */ 
         if (userInput.toLowerCase().trim() === selectedCountry) {
             feedback.innerHTML = "Correct"
             score += 1
-            console.log(userSelectedNumber)
             gameEndCheck()
-            nextQuestion() 
+            nextQuestion()
+            answer.innerText = ''
         } else if (userInput.toLowerCase().trim() === '') {
             document.querySelector('input[name="guess"]').value  = ''
             feedback.innerHTML = "Please enter a guess";
+            answer.innerText = ''
         }
         else {
-            console.log("check")
-            feedback.innerHTML = "Try again"
-            document.querySelector('input[name="guess"]').value  = ''
+            checkAnswerDisplay(userInput.toLowerCase().trim(), selectedCountry)
             tries += 1 
+            feedback.innerHTML = `Try again. You have tried ${tries} times.`
+            document.querySelector('input[name="guess"]').value  = ''
+            answer.innerText = ''
         } 
     })
 });
 
-skipButton.addEventListener('click', nextQuestion);
-skipButton.addEventListener('click', gameEndCheck);
-restartButton.addEventListener('click', Restart);
+skipButton.addEventListener('click', function() {
+    answer.innerText = `The answer was ${selectedCountry}.`
+    nextQuestion() 
+    gameEndCheck() 
+}) 
+
+restartButton2.addEventListener('click', function() {
+    homeScreen()
+    Restart();
+});
+
+restartButton.addEventListener('click', function() {
+    homeScreen(); 
+    Restart();
+});
 
