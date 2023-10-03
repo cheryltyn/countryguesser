@@ -14,7 +14,7 @@ const countries = {
     "AT": "Austria",
     "AU": "Australia",
     "AW": "Aruba",
-    "AX": "\u00c5land Islands",
+    "AX": "Aland Islands",
     "AZ": "Azerbaijan",
     "BA": "Bosnia and Herzegovina",
     "BB": "Barbados",
@@ -43,7 +43,7 @@ const countries = {
     "CF": "Central African Republic",
     "CG": "Republic of the Congo",
     "CH": "Switzerland",
-    "CI": "Cote d;Ivoire",
+    "CI": "Cote d'Ivoire",
     "CK": "Cook Islands",
     "CL": "Chile",
     "CM": "Cameroon",
@@ -52,7 +52,7 @@ const countries = {
     "CR": "Costa Rica",
     "CU": "Cuba",
     "CV": "Cape Verde",
-    "CW": "Cura\u00e7ao",
+    "CW": "Curacao",
     "CX": "Christmas Island",
     "CY": "Cyprus",
     "CZ": "Czech Republic",
@@ -78,7 +78,6 @@ const countries = {
     "FR": "France",
     "GA": "Gabon",
     "GB-ENG": "England",
-    "GB-NIR": "Northern Ireland",
     "GB-SCT": "Scotland",
     "GB-WLS": "Wales",
     "GB": "United Kingdom",
@@ -145,7 +144,6 @@ const countries = {
     "MC": "Monaco",
     "MD": "Moldova",
     "ME": "Montenegro",
-    "MF": "Saint Martin",
     "MG": "Madagascar",
     "MH": "Marshall Islands",
     "MK": "North Macedonia",
@@ -250,7 +248,6 @@ const countries = {
     "WS": "Samoa",
     "XK": "Kosovo",
     "YE": "Yemen",
-    "YT": "Mayotte",
     "ZA": "South Africa",
     "ZM": "Zambia",
     "ZW": "Zimbabwe"
@@ -316,29 +313,24 @@ function generateAnswerDisplay(word) {
     var wordArray = word.split("");
     hold.innerHTML = ""
     for (var i = 0; i < wordArray.length; i++) {
-        if (wordArray[i] == ' ') {
-            /* can't add more space */ 
-            var content = document.createTextNode(" ".repeat(20))
-            hold.appendChild(content)
-        }
-        else {
             var content = document.createTextNode("_  ")
             hold.appendChild(content)
         }
     }
-}
 
 function checkAnswerDisplay(userInput, selectedCountry) {
     var countryAnswer = selectedCountry.split(""); 
     var user = userInput.split("")
-    var placeholder = hold.innerText.split(" ")
-    console.log(countryAnswer, user)
+    var placeholder = hold.innerText.replace(/\s+/g, '').split("")
     for (var i = 0; i < user.length; i++) {
         if (countryAnswer[i] === user[i]) {
             placeholder[i] = countryAnswer[i]
         }
     }
     hold.innerHTML = placeholder.join(" ")
+    if (selectedCountry === hold.innerHTML.replace(/\s+/g, '')) {
+        nextQuestion()
+    }
 }
 
 
@@ -346,7 +338,6 @@ function updateScore() {
     scoreText = document.getElementById("score")
     scoreText.innerHTML = `Score: ${score}`
     questionText = document.getElementById("question_number")
-    /* need to define the userSleected Number first */ 
     questionText.innerHTML = `Question: ${questionNumber}/${userSelectedNumber}`
 }
 
@@ -411,8 +402,6 @@ document.addEventListener('DOMContentLoaded', function() {
     form.addEventListener('submit', function(event) {
         var userInput = document.querySelector('input[name="guess"]').value;
         event.preventDefault()
-        checkAnswerDisplay(userInput, selectedCountry)
-        /* how can I allow more dynamic questions */ 
         if (userInput.toLowerCase().trim() === selectedCountry) {
             feedback.innerHTML = "Correct"
             score += 1
@@ -425,12 +414,12 @@ document.addEventListener('DOMContentLoaded', function() {
             answer.innerText = ''
         }
         else {
-            checkAnswerDisplay(userInput.toLowerCase().trim(), selectedCountry)
             tries += 1 
             feedback.innerHTML = `Try again. You have tried ${tries} times.`
             document.querySelector('input[name="guess"]').value  = ''
             answer.innerText = ''
         } 
+        checkAnswerDisplay(userInput.toLowerCase().trim(), selectedCountry)
     })
 });
 
