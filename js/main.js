@@ -29,7 +29,6 @@ const countries = {
     "BM": "Bermuda",
     "BN": "Brunei Darussalam",
     "BO": "Bolivia",
-    "BQ": "Caribbean Netherlands",
     "BR": "Brazil",
     "BS": "Bahamas",
     "BT": "Bhutan",
@@ -331,6 +330,7 @@ function checkAnswerDisplay(userInput, selectedCountry) {
     if (selectedCountry === hold.innerHTML.replace(/\s+/g, '')) {
         nextQuestion()
     }
+
 }
 
 
@@ -409,6 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
             nextQuestion()
             answer.innerText = ''
         } else if (userInput.toLowerCase().trim() === '') {
+            tries += 1 
             document.querySelector('input[name="guess"]').value  = ''
             feedback.innerHTML = "Please enter a guess";
             answer.innerText = ''
@@ -418,8 +419,8 @@ document.addEventListener('DOMContentLoaded', function() {
             feedback.innerHTML = `Try again. You have tried ${tries} times.`
             document.querySelector('input[name="guess"]').value  = ''
             answer.innerText = ''
+            checkAnswerDisplay(userInput.toLowerCase().trim(), selectedCountry)
         } 
-        checkAnswerDisplay(userInput.toLowerCase().trim(), selectedCountry)
     })
 });
 

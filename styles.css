@@ -40,6 +40,10 @@ h2 {
     font-size: 20px;
 }
 
+.background-element {
+    background-image: url('clouds.jpeg');
+}
+
 #score {
     margin-right: 10%;
     display: flex;
