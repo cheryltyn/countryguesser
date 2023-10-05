@@ -8,7 +8,12 @@ Introducing Fun With Flags, a game to help improve your knowledge of flags! For 
 2. **Guess the Random Flag:** The user can then guess the flag. If they’re unsure, the number of letters provided can be helpful. 
 3. Hints Provided: As the user keeps guessing, the letters will populate. Providing some hints for the user to keep progressing. 
 4. Feeling stuck? The user can always choose to skip. 
-5. Get your final score: Once the game ends, the user can see their final score and choose to restart! 
+5. Get your final score: Once the game ends, the user can see their final score and choose to restart!
+
+<img width="778" alt="image" src="https://github.com/cheryltyn/funwithflags/assets/55976709/6738803c-5eef-4b05-8ec9-70207f540409">
+<img width="687" alt="image" src="https://github.com/cheryltyn/funwithflags/assets/55976709/e8afebdc-18d9-48ca-bcbe-6b2365b2b5aa">
+<img width="562" alt="image" src="https://github.com/cheryltyn/funwithflags/assets/55976709/55b79928-e70b-46c0-a087-15f3d4a00cb1">
+
 
 ## Technologies Used:
 
