@@ -192,7 +192,7 @@ const countries = {
     "RE": "Réunion",
     "RO": "Romania",
     "RS": "Serbia",
-    "RU": "Russian Federation",
+    "RU": "Russia",
     "RW": "Rwanda",
     "SA": "Saudi Arabia",
     "SB": "Solomon Islands",
