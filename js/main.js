@@ -353,7 +353,6 @@ function nextQuestion() {
     feedback.innerHTML = "Fill in your answer here:"
     questionNumber += 1
     tries = 0
-    gameEndCheck()
     updateScore()
     updateFlag() 
     generateAnswerDisplay(selectedCountry)
@@ -399,8 +398,9 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault()
         if (userInput.toLowerCase().trim() === selectedCountry) {
             feedback.innerHTML = "Correct"
-            nextQuestion()
+            gameEndCheck() 
             score += 1
+            nextQuestion()
             answer.innerText = ''
         } else if (userInput.toLowerCase().trim() === '') {
             tries += 1 
@@ -421,6 +421,7 @@ document.addEventListener('DOMContentLoaded', function() {
 skipButton.addEventListener('click', function() {
     answer.innerText = `The answer was ${selectedCountry}.`
     nextQuestion() 
+    gameEndCheck() 
 }) 
 
 restartButton2.addEventListener('click', function() {
