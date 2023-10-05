@@ -187,7 +187,6 @@ const countries = {
     "PW": "Palau",
     "PY": "Paraguay",
     "QA": "Qatar",
-    "RE": "Réunion",
     "RO": "Romania",
     "RS": "Serbia",
     "RU": "Russia",
@@ -325,6 +324,7 @@ function checkAnswerDisplay(userInput, selectedCountry) {
     hold.innerHTML = placeholder.join(" ")
     if (selectedCountry === hold.innerHTML.replace(/\s+/g, '')) {
         nextQuestion()
+        gameEndCheck()
     }
 
 }
@@ -343,7 +343,7 @@ function updateFlag() {
     selectedCountry = countriesLowercased[countryList[random]]
     console.log(selectedCountry)
     if (imageElement) {
-        imageElement.src = `/svg/${countryList[random]}.svg`;
+        imageElement.src = `svg/${countryList[random]}.svg`;
     } else {
         console.log("ERROR") /* error handling */ 
     }
@@ -352,7 +352,6 @@ function updateFlag() {
 
 function nextQuestion() {
     feedback.innerHTML = "Fill in your answer here:"
-    gameEndCheck()
     questionNumber += 1
     tries = 0
     updateScore()
@@ -400,8 +399,8 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault()
         if (userInput.toLowerCase().trim() === selectedCountry) {
             feedback.innerHTML = "Correct"
+            gameEndCheck() 
             score += 1
-            gameEndCheck()
             nextQuestion()
             answer.innerText = ''
         } else if (userInput.toLowerCase().trim() === '') {
