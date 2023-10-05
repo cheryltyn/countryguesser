@@ -1,4 +1,4 @@
-### Introducing Fun With Flags!
+# Introducing Fun With Flags!
 
 Introducing Fun With Flags, a game to help improve your knowledge of flags! For Big Bang Theory fans, this game will not sound new to you. This was inspired by main character Sheldon Cooper’s love for flags! I always thought it was so cool that Sheldon was so knowledgeable with flags. As such, I decided to make a game about flags so I can improve my own knowledge of flags! 
 
