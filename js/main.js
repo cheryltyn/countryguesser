@@ -343,7 +343,7 @@ function updateFlag() {
     selectedCountry = countriesLowercased[countryList[random]]
     console.log(selectedCountry)
     if (imageElement) {
-        imageElement.src = `../svg/${countryList[random]}.svg`;
+        imageElement.src = `/svg/${countryList[random]}.svg`;
     } else {
         console.log("ERROR") /* error handling */ 
     }
