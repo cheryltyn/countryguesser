@@ -89,7 +89,6 @@ const countries = {
     "GN": "Guinea",
     "GQ": "Equatorial Guinea",
     "GR": "Greece",
-    "GS": "South Georgia and the South Sandwich Islands",
     "GT": "Guatemala",
     "GU": "Guam",
     "GW": "Guinea Bissau",
@@ -120,8 +119,8 @@ const countries = {
     "KI": "Kiribati",
     "KM": "Comoros",
     "KN": "Saint Kitts and Nevis",
-    "KP": "Korea",
-    "KR": "Korea",
+    "KP": "North Korea",
+    "KR": "South Korea",
     "KW": "Kuwait",
     "KY": "Cayman Islands",
     "KZ": "Kazakhstan",
@@ -303,7 +302,7 @@ function generateAnswerDisplay(word) {
     var wordArray = word.split("");
     hold.innerHTML = ""
     for (var i = 0; i < wordArray.length; i++) {
-            var content = document.createTextNode("_  ")
+            var content = document.createTextNode("_")
             hold.appendChild(content)
         }
     }
@@ -311,14 +310,15 @@ function generateAnswerDisplay(word) {
 function checkAnswerDisplay(userInput, selectedCountry) {
     var countryAnswer = selectedCountry.split(""); 
     var user = userInput.split("")
-    var placeholder = hold.innerText.replace(/\s+/g, '').split("")
+    var placeholder = hold.innerText.split("")
     for (var i = 0; i < user.length; i++) {
         if (countryAnswer[i] === user[i]) {
             placeholder[i] = countryAnswer[i]
         }
     }
-    hold.innerHTML = placeholder.join(" ")
-    if (selectedCountry === hold.innerHTML.replace(/\s+/g, '')) {
+    console.log(placeholder)
+    hold.innerHTML = placeholder.join("")
+    if (selectedCountry === hold.innerHTML) {
         nextQuestion()
         gameEndCheck()
     }
@@ -340,9 +340,7 @@ function updateFlag() {
     console.log(selectedCountry)
     if (imageElement) {
         imageElement.src = `./svg/${countryList[random]}.svg`;
-    } else {
-        console.log("ERROR") /* error handling */ 
-    }
+    } 
     countryList.splice(random,1)
 }
 

@@ -8,6 +8,7 @@
 
 body {
     background-image: url('clouds.jpeg');
+    background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -69,7 +70,7 @@ img {
 }
 
 #hold {
-    white-space: pre-wrap;
+    letter-spacing: 4px;
 }
 
 #restart2 {

@@ -30,6 +30,7 @@ Introducing Fun With Flags, a game to help improve your knowledge of flags! For 
 
 1. **Adding more dynamic hints:** Adding hints specific to the countries, allowing for a more fun guessing experience for the player. 
 2. **************************************************More dynamic text match:************************************************** Currently, the match of country is done letter by letter. If possible, I would hope more dynamic answers can be accepted. For example, Korea can be accepted as an answer for South Korea. 
+3. **************************************************Mobile friendly:************************************************** Making the game mobile friendly for my friends to play. 
 
 ## Key Takeaways:
 
