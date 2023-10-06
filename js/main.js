@@ -31,7 +31,6 @@ const countries = {
     "BR": "Brazil",
     "BS": "Bahamas",
     "BT": "Bhutan",
-    "BV": "Bouvet Island",
     "BW": "Botswana",
     "BY": "Belarus",
     "BZ": "Belize",
@@ -175,7 +174,6 @@ const countries = {
     "PH": "Philippines",
     "PK": "Pakistan",
     "PL": "Poland",
-    "PM": "Saint Pierre and Miquelon",
     "PN": "Pitcairn",
     "PR": "Puerto Rico",
     "PS": "Palestine",
@@ -316,7 +314,6 @@ function checkAnswerDisplay(userInput, selectedCountry) {
             placeholder[i] = countryAnswer[i]
         }
     }
-    console.log(placeholder)
     hold.innerHTML = placeholder.join("")
     if (selectedCountry === hold.innerHTML) {
         nextQuestion()
@@ -337,7 +334,6 @@ function updateScore() {
 function updateFlag() {
     const random = Math.floor(Math.random() * countryList.length);
     selectedCountry = countriesLowercased[countryList[random]]
-    console.log(selectedCountry)
     if (imageElement) {
         imageElement.src = `./svg/${countryList[random]}.svg`;
     } 
@@ -363,6 +359,11 @@ function gameEndCheck() {
         gameEnd.hidden=false 
         gameStart.hidden = true
         gameStartScreen.hidden = true
+        if (score >= 0.8*userSelectedNumber) {
+            document.querySelector('#gameEnd > h1').innerHTML= `Congrats! Try Again?`
+        } else {
+            document.querySelector('#gameEnd > h1').innerHTML= `Try Again?`
+        }
         document.querySelector('#gameEnd > h2').innerHTML= `Your score is ${score}/${questionNumber}`
         }
 }
@@ -370,7 +371,6 @@ function gameEndCheck() {
 
 /*----- event listeners  -----*/
 /*----- game start screen  -----*/
-
 radios.forEach(function(radio) {
     radio.addEventListener('change', function() {
       if (this.checked) {
@@ -412,13 +412,13 @@ document.addEventListener('DOMContentLoaded', function() {
         } 
     })
 });
-
+/*----- skip button -----*/
 skipButton.addEventListener('click', function() {
     answer.innerText = `The answer was ${selectedCountry}.`
     nextQuestion() 
     gameEndCheck() 
 }) 
-
+/*----- restart button -----*/
 restartButton2.addEventListener('click', function() {
     homeScreen()
     Restart();
