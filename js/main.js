@@ -245,29 +245,29 @@ const countriesLowercased = Object.keys(countries).reduce((newObj, key) => {
 }, {});
 
 
-/*----- state variables  -----*/
-var score = 0
-var countryList = []
-var questionNumber = 0 
-var imageElement
-var selectedCountry 
-var tries = 0
-var userSelectedNumber 
-var wordDisplay = [];
+/*----- state letiables  -----*/
+let score = 0
+let countryList = []
+let questionNumber = 0 
+let imageElement
+let selectedCountry 
+let tries = 0
+let userSelectedNumber 
+let wordDisplay = [];
 
-var form = document.getElementById('myForm')
-var feedback = document.getElementById("feedback")
-var answer = document.getElementById('answer')
-var hold = document.getElementById('hold')
+let form = document.getElementById('myForm')
+let feedback = document.getElementById("feedback")
+let answer = document.getElementById('answer')
+let hold = document.getElementById('hold')
 
-var skipButton = document.getElementById('skip')
-var restartButton = document.getElementById('restart')
-var restartButton2 = document.getElementById('restart2')
-var radios = document.querySelectorAll('input[type=radio]')
+let skipButton = document.getElementById('skip')
+let restartButton = document.getElementById('restart')
+let restartButton2 = document.getElementById('restart2')
+let radios = document.querySelectorAll('input[type=radio]')
 
-var gameStartScreen = document.getElementById("gameStartScreen")
-var gameStart = document.getElementById("gameStart")
-var gameEnd = document.getElementById('gameEnd') 
+let gameStartScreen = document.getElementById("gameStartScreen")
+let gameStart = document.getElementById("gameStart")
+let gameEnd = document.getElementById('gameEnd') 
 /*----- functions  -----*/
 function homeScreen() {
     // display home screen and hides the game and end screen, ensure buttons are unchecked.git
@@ -278,7 +278,7 @@ function homeScreen() {
 }
 
 
-function Restart() {
+function rename() {
     score = 0
     countryList = []
     for (country in countries) {
@@ -298,21 +298,21 @@ function Restart() {
 }
 
 function generateAnswerDisplay(word) {
-    var wordArray = word.split("");
+    let wordArray = word.split("");
     hold.innerHTML = ""
-    for (var i = 0; i < wordArray.length; i++) {
-            var content = document.createTextNode("_")
+    for (let i = 0; i < wordArray.length; i++) {
+            let content = document.createTextNode("_")
             hold.appendChild(content)
         }
     }
 
 function checkAnswerDisplay(userInput, selectedCountry) {
-    var countryAnswer = selectedCountry.split(""); 
-    var user = userInput.split("")
-    var placeholder = hold.innerText.split("")
-    for (var i = 0; i < user.length; i++) {
-        if (countryAnswer[i] === user[i]) {
-            placeholder[i] = countryAnswer[i]
+    let countryAnswer = selectedCountry.split(""); 
+    let user = userInput.split("")
+    let placeholder = hold.innerText.split("")
+    for (let i = 0; i < countryAnswer.length; i++) {
+        if (user.includes(countryAnswer[i])) {
+            placeholder[i] = countryAnswer[i];
         }
     }
     hold.innerHTML = placeholder.join("")
@@ -378,7 +378,7 @@ radios.forEach(function(radio) {
           document.getElementById("gameStartScreen").hidden=true
           document.getElementById("gameStart").hidden=false
           radios.checked = false
-          Restart()
+          rename()
       }
     });
   });
@@ -389,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
     imageElement = document.getElementById("imageid");
 
     form.addEventListener('submit', function(event) {
-        var userInput = document.querySelector('input[name="guess"]').value;
+        let userInput = document.querySelector('input[name="guess"]').value;
         event.preventDefault()
         if (userInput.toLowerCase().trim() === selectedCountry) {
             feedback.innerHTML = "Correct"
@@ -421,11 +421,11 @@ skipButton.addEventListener('click', function() {
 /*----- restart button -----*/
 restartButton2.addEventListener('click', function() {
     homeScreen()
-    Restart();
+    rename();
 });
 
 restartButton.addEventListener('click', function() {
     homeScreen(); 
-    Restart();
+    rename();
 });
 

@@ -80,3 +80,30 @@ img {
     align-items: center;
     flex-wrap: wrap;
 }
+
+@media (max-width: 768px) {
+    /* Your mobile-specific styles here */
+    body {
+        font-size: 18px; /* Adjusted font size for mobile */
+    }
+
+    h1 {
+        font-size: 28px; 
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+    
+    #question_number, #score {
+        margin-left: 10%; 
+    }
+
+   #score {
+        margin-right: 10%; 
+    }
+
+    input[type=guess], input[type=submit] {
+        width: 60%;
+    }
+}
