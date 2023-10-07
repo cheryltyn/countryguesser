@@ -311,8 +311,8 @@ function checkAnswerDisplay(userInput, selectedCountry) {
     var user = userInput.split("")
     var placeholder = hold.innerText.split("")
     for (var i = 0; i < user.length; i++) {
-        if (countryAnswer.includes(user[i])) {
-            placeholder[i] = user[i]
+        if (countryAnswer[i] === user[i]) {
+            placeholder[i] = countryAnswer[i]
         }
     }
     hold.innerHTML = placeholder.join("")
