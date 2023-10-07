@@ -270,6 +270,7 @@ var gameStart = document.getElementById("gameStart")
 var gameEnd = document.getElementById('gameEnd') 
 /*----- functions  -----*/
 function homeScreen() {
+    // display home screen and hides the game and end screen, ensure buttons are unchecked.git
     gameStartScreen.hidden = false
     gameStart.hidden = true
     gameEnd.hidden = true
@@ -310,7 +311,7 @@ function checkAnswerDisplay(userInput, selectedCountry) {
     var user = userInput.split("")
     var placeholder = hold.innerText.split("")
     for (var i = 0; i < user.length; i++) {
-        if (countryAnswer[i] === user[i]) {
+        if (countryAnswer.includes(user[i])) {
             placeholder[i] = countryAnswer[i]
         }
     }
