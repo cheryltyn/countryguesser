@@ -320,7 +320,6 @@ function checkAnswerDisplay(userInput, selectedCountry) {
         nextQuestion()
         gameEndCheck()
     }
-
 }
 
 
