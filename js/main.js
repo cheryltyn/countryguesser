@@ -322,7 +322,6 @@ function checkAnswerDisplay(userInput, selectedCountry) {
     }
 }
 
-
 function updateScore() {
     scoreText = document.getElementById("score")
     scoreText.innerHTML = `Score: ${score}`
