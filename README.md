@@ -12,13 +12,13 @@ https://cheryltyn.github.io/funwithflags/
 5. Get your final score: Once the game ends, the user can see their final score and choose to restart!
 
    
-## Game Start: 
+### Game Start: 
 <img width="778" alt="image" src="https://github.com/cheryltyn/funwithflags/assets/55976709/6738803c-5eef-4b05-8ec9-70207f540409">
 
-## Game Play: 
+### Game Play: 
 <img width="687" alt="image" src="https://github.com/cheryltyn/funwithflags/assets/55976709/e8afebdc-18d9-48ca-bcbe-6b2365b2b5aa">
 
-## Game End: 
+### Game End: 
 <img width="562" alt="image" src="https://github.com/cheryltyn/funwithflags/assets/55976709/55b79928-e70b-46c0-a087-15f3d4a00cb1">
 
 
