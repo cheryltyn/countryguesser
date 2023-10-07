@@ -15,7 +15,7 @@ https://cheryltyn.github.io/funwithflags/
 ## Game Start: 
 <img width="778" alt="image" src="https://github.com/cheryltyn/funwithflags/assets/55976709/6738803c-5eef-4b05-8ec9-70207f540409">
 
-## Game Start: 
+## Game Play: 
 <img width="687" alt="image" src="https://github.com/cheryltyn/funwithflags/assets/55976709/e8afebdc-18d9-48ca-bcbe-6b2365b2b5aa">
 
 ## Game End: 
