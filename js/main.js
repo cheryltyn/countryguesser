@@ -301,10 +301,16 @@ function generateAnswerDisplay(word) {
     let wordArray = word.split("");
     hold.innerHTML = ""
     for (let i = 0; i < wordArray.length; i++) {
+        if (wordArray[i] === " ") {
+            let content = document.createTextNode(" ")
+            hold.appendChild(content)
+        } else {
             let content = document.createTextNode("_")
             hold.appendChild(content)
         }
     }
+    console.log(hold)
+}
 
 function checkAnswerDisplay(userInput, selectedCountry) {
     let countryAnswer = selectedCountry.split(""); 

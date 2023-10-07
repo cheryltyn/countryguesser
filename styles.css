@@ -81,8 +81,13 @@ img {
     flex-wrap: wrap;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 740px) {
     /* Your mobile-specific styles here */
+
+    #questionSelection {
+        font: 20px; 
+    }
+
     body {
         font-size: 18px; /* Adjusted font size for mobile */
     }
