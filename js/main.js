@@ -312,7 +312,7 @@ function checkAnswerDisplay(userInput, selectedCountry) {
     var placeholder = hold.innerText.split("")
     for (var i = 0; i < user.length; i++) {
         if (countryAnswer.includes(user[i])) {
-            placeholder[i] = countryAnswer[i]
+            placeholder[i] = user[i]
         }
     }
     hold.innerHTML = placeholder.join("")
