@@ -245,7 +245,7 @@ const countriesLowercased = Object.keys(countries).reduce((newObj, key) => {
 }, {});
 
 
-/*----- state letiables  -----*/
+/*----- state variables  -----*/
 let score = 0
 let countryList = []
 let questionNumber = 0 
@@ -270,7 +270,7 @@ let gameStart = document.getElementById("gameStart")
 let gameEnd = document.getElementById('gameEnd') 
 /*----- functions  -----*/
 function homeScreen() {
-    // display home screen and hides the game and end screen, ensure buttons are unchecked.git
+    // display home screen and hides the game and end screen, ensure buttons are unchecked.
     gameStartScreen.hidden = false
     gameStart.hidden = true
     gameEnd.hidden = true
