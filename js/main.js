@@ -278,7 +278,8 @@ function homeScreen() {
 }
 
 
-function rename() {
+function restart() {
+    // start and restart the game, by resetting scores and text. Is init() a better name? 
     score = 0
     countryList = []
     for (country in countries) {
@@ -298,6 +299,7 @@ function rename() {
 }
 
 function generateAnswerDisplay(word) {
+    // generate the hangman style underscores for each word 
     let wordArray = word.split("");
     hold.innerHTML = ""
     for (let i = 0; i < wordArray.length; i++) {
@@ -309,10 +311,10 @@ function generateAnswerDisplay(word) {
             hold.appendChild(content)
         }
     }
-    console.log(hold)
 }
 
 function checkAnswerDisplay(userInput, selectedCountry) {
+    // check answer when the user input, to replace the placeholder with letters 
     let countryAnswer = selectedCountry.split(""); 
     let user = userInput.split("")
     let placeholder = hold.innerText.split("")
@@ -330,6 +332,7 @@ function checkAnswerDisplay(userInput, selectedCountry) {
 }
 
 function updateScore() {
+    // update score and question number after each question. 
     scoreText = document.getElementById("score")
     scoreText.innerHTML = `Score: ${score}`
     questionText = document.getElementById("question_number")
@@ -338,6 +341,7 @@ function updateScore() {
 
 
 function updateFlag() {
+    // update the flag after each question 
     const random = Math.floor(Math.random() * countryList.length);
     selectedCountry = countriesLowercased[countryList[random]]
     if (imageElement) {
@@ -347,6 +351,7 @@ function updateFlag() {
 }
 
 function nextQuestion() {
+    // goes to the next question by updating score, flag, hangman and text. 
     feedback.innerHTML = "Fill in your answer here:"
     questionNumber += 1
     tries = 0
@@ -357,6 +362,7 @@ function nextQuestion() {
 }
 
 function gameEndCheck() {
+    // check if the game has ended, and if so hide the gameplay screen and show game end screen 
     if (questionNumber == userSelectedNumber) {
         skipButton.disabled = true 
         for (let element of form.elements) {
@@ -378,19 +384,21 @@ function gameEndCheck() {
 /*----- event listeners  -----*/
 /*----- game start screen  -----*/
 radios.forEach(function(radio) {
+    // listens for when the radio buttons have been clicked 
     radio.addEventListener('change', function() {
       if (this.checked) {
           userSelectedNumber = this.value
           document.getElementById("gameStartScreen").hidden=true
           document.getElementById("gameStart").hidden=false
           radios.checked = false
-          rename()
+          restart()
       }
     });
   });
 
 /*----- gameplay  -----*/ 
 document.addEventListener('DOMContentLoaded', function() {
+    // start game play and listens for inputs 
     document.getElementById("imageid").style.display = "block"
     imageElement = document.getElementById("imageid");
 
@@ -419,19 +427,21 @@ document.addEventListener('DOMContentLoaded', function() {
     })
 });
 /*----- skip button -----*/
+// listen for when the user skips a game 
 skipButton.addEventListener('click', function() {
     answer.innerText = `The answer was ${selectedCountry}.`
     nextQuestion() 
     gameEndCheck() 
 }) 
 /*----- restart button -----*/
+// listen for when the user restarts a game 
 restartButton2.addEventListener('click', function() {
     homeScreen()
-    rename();
+    restart();
 });
 
 restartButton.addEventListener('click', function() {
     homeScreen(); 
-    rename();
+    restart();
 });
 
