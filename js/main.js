@@ -324,11 +324,13 @@ function checkAnswerDisplay(userInput, selectedCountry) {
         }
     }
     hold.innerHTML = placeholder.join("")
+    /* 
     if (selectedCountry === hold.innerHTML) {
         score += 1
         nextQuestion()
         gameEndCheck()
     }
+    */ 
 }
 
 function updateScore() {
