@@ -90,6 +90,8 @@ img {
 
     body {
         font-size: 18px; /* Adjusted font size for mobile */
+        margin-left: 10%;
+        margin-right: 10%;
     }
 
     h1 {
@@ -109,6 +111,15 @@ img {
     }
 
     input[type=guess], input[type=submit] {
-        width: 60%;
+        max-width: 60%;
     }
+
+    button {
+        font-size: 18px;
+    }
+
+    #myForm {
+        font-size: 18px;
+    }
+
 }
